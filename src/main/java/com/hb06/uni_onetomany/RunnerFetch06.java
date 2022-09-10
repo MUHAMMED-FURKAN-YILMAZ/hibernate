@@ -1,10 +1,12 @@
 package com.hb06.uni_onetomany;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 public class RunnerFetch06 {
 
@@ -31,9 +33,15 @@ public class RunnerFetch06 {
 //		Student06 student = session.get(Student06.class, 1001);
 //		student.getBookList().forEach(b->System.out.println(b));
 		
-		Book06 book=session.get(Book06.class, 101);
-		System.out.println(book);
+//		Book06 book=session.get(Book06.class, 101);
+//		System.out.println(book);
 
+		
+		String hqlQuery2="SELECT b.id, b.name FROM Student06 s INNER JOIN s.bookList b where s.id=1001";
+		List<Object[]> resultList1 = session.createQuery(hqlQuery2).getResultList();
+		
+		resultList1.forEach(oa->System.out.println(Arrays.toString(oa)));
+		
 		tx.commit();
 		session.close();
 		sf.close();
