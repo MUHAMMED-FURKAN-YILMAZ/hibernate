@@ -33,6 +33,14 @@
         <property name="show_sql">true</property>
 
         <property name="format_sql">true</property>
+        
+        
+        <!--.addAnnotatedClass(Student05.class).addAnnotatedClass(University.class);  yerine 
+        asagidaki config yapilabilir
+          
+        <mapping class="com.hb05.manytoone.Student05"/>
+        <mapping class="com.hb05.manytoone.University"/>
+        -->
 
     </session-factory>
 

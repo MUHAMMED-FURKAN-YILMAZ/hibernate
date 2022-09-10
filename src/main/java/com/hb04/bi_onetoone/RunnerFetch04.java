@@ -52,20 +52,58 @@ public class RunnerFetch04 {
 		 */
 		
 		
-		String hqlQuery1 = "SELECT s.name, d.name FROM Student04 s INNER JOIN FETCH Diary02 d on s.id=d.student";
-		List<Object[]> resultList1 = session.createQuery(hqlQuery1).getResultList();
+//		String hqlQuery1 = "SELECT s.name, d.name FROM Student04 s INNER JOIN FETCH Diary02 d on s.id=d.student";
+//		List<Object[]> resultList1 = session.createQuery(hqlQuery1).getResultList();
 		
 //		for (Object[] objects : resultList1) {
 //			System.out.println(Arrays.toString(objects));
 //		}
 
-		resultList1.forEach(oa->{
-			System.out.println(Arrays.toString(oa));
-		});
-		
+//		resultList1.forEach(oa->{
+//			System.out.println(Arrays.toString(oa));
+//		});
+//		
 
+		// LEFT JOIN
+//		String hqlQuery2 = "SELECT s.name, d.name FROM Student04 s LEFT JOIN FETCH Diary02 d on s.id=d.student";
+//		List<Object[]> resultList2 = session.createQuery(hqlQuery2).getResultList();
+//
+//		resultList2.forEach(oa->{
+//			System.out.println(Arrays.toString(oa));
+//		});	
 		
-
+		
+		// RIGHT JOIN 
+//		String hqlQuery3 = "SELECT s.name, d.name FROM Student04 s RIGHT JOIN FETCH Diary02 d on s.id=d.student";
+//		List<Object[]> resultList3 = session.createQuery(hqlQuery3).getResultList();
+//
+//		resultList3.forEach(oa->{
+//			System.out.println(Arrays.toString(oa));
+//		});	
+		
+		
+		// FULL JOIN 
+//		String hqlQuery4 = "SELECT s.name, d.name FROM Student04 s FULL JOIN FETCH Diary02 d on s.id=d.student";
+//		List<Object[]> resultList4 = session.createQuery(hqlQuery4).getResultList();
+//
+//		resultList4.forEach(oa->{
+//			System.out.println(Arrays.toString(oa));
+//		});	
+		
+		
+//		String hqlQuery5 = "FROM Student04 s INNER JOIN FETCH s.diary";
+//		List<Student04> resultList5 = session.createQuery(hqlQuery5,Student04.class).getResultList();
+//		
+//		for (Student04 student04 : resultList5) {
+//		System.out.println(student04);
+//	}
+		
+		String hqlQuery6 = "FROM Diary02 d INNER JOIN FETCH d.student";
+		List<Diary02> resultList6 = session.createQuery(hqlQuery6,Diary02.class).getResultList();
+		
+		resultList6.forEach(d-> System.out.println(d));
+		
+		
 		tx.commit();
 		session.close();
 		sf.close();
