@@ -23,7 +23,7 @@ public class Student09 {
 	
 	//orphan=yetim
 	//orphanRemoval = true, parent silinirse, child da silinsin. Eğer bir obje yetim kalırsa onuda db'den sil.
-	@OneToMany( mappedBy = "student",/*orphanRemoval = true,*/cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany( mappedBy = "student",/*orphanRemoval = true,*/cascade = CascadeType.ALL/*,fetch = FetchType.EAGER*/)
 	private List<Book09> bookList=new ArrayList<>();
 
 	public int getId() {

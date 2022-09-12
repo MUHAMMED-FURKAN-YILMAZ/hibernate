@@ -11,6 +11,16 @@ import org.hibernate.cfg.Configuration;
 public class RunnerFetch09 {
 
 	public static void main(String[] args) {
+		
+		/*//getStudent metodunu test ettik
+		Student09 std1= getStudent(1001);
+		
+		 List<Book09> bookList = std1.getBookList();
+		
+		 for (Book09 book09 : bookList) {
+			System.out.println(book09);
+		}*/
+		 
 		Configuration con=new Configuration().configure("hibernate.cfg.xml").
 				addAnnotatedClass(Student09.class).addAnnotatedClass(Book09.class);
 		
@@ -85,11 +95,90 @@ Hibernate:
         booklist0_.student_id=?
 		 */
 		
-		Book09 book1= session.get(Book09.class,101);
+	//	Book09 book1= session.get(Book09.class,101);
+		
+		
+		// Student09 student= session.get(Student09.class,1001);
+		 
+//		 for (Book09 book : student.getBookList()) {
+//			System.out.println(book);
+//		}
+		 
+		 
+		//List<Book09> bookList = student.getBookList();
+		 
+		 
+		 
+		 //---JOIN VS JOIN FETCH----------------------------------
+		 /*
+		  * Hibernate: JOIN query 
+    select
+        student09x0_.id as id1_1_,
+        student09x0_.grade as grade2_1_,
+        student09x0_.student_name as student_3_1_ 
+    from
+        Student09 student09x0_ 
+    inner join
+        Book09 booklist1_ 
+            on student09x0_.id=booklist1_.student_id
+		  */
+		
+		/*
+		 * Hibernate: JOIN FETCH QUERY
+    select
+        student09x0_.id as id1_1_0_,
+        booklist1_.id as id1_0_1_,
+        student09x0_.grade as grade2_1_0_,
+        student09x0_.student_name as student_3_1_0_,
+        booklist1_.name as name2_0_1_,
+        booklist1_.student_id as student_3_0_1_,
+        booklist1_.student_id as student_3_0_0__,
+        booklist1_.id as id1_0_0__ 
+    from
+        Student09 student09x0_ 
+    inner join
+        Book09 booklist1_ 
+            on student09x0_.id=booklist1_.student_id
+		 */
+		
+		 String hqlQuery1="SELECT s FROM Student09 s JOIN FETCH s.bookList";
+		 session.createQuery(hqlQuery1).getResultList();
+		 
 		
 		tx.commit();
 		session.close();
+		/*FETCH TYPE LAZY ise aşağıdaki code session close olduktan sonra LazyInitializationException throw eder.
+		 for (Book09 book : student.getBookList()) {
+			System.out.println(book);
+		}
+		*/
+		
+		/*FETCH TYPE EAGER ise aşağıdaki code session close olduktan sonra da problemsiz çalışır 
+		 * çünkü student nesnesi ilişkisiyle beraber birseferde yüklenir.
+		 for (Book09 book : student.getBookList()) {
+				System.out.println(book);
+			}
+			*/
         sf.close();
+	}
+	
+	private static Student09 getStudent(int id) {
+		Configuration con=new Configuration().configure("hibernate.cfg.xml").
+				addAnnotatedClass(Student09.class).addAnnotatedClass(Book09.class);
+		
+		SessionFactory sf= con.buildSessionFactory();
+		Session session= sf.openSession();
+		
+		Transaction tx = session.beginTransaction();
+		
+		Student09 student= session.get(Student09.class,id);
+		
+		
+		tx.commit();
+		session.close();
+		sf.close();
+		
+		return student;
 	}
 
 }
