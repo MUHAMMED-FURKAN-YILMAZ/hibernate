@@ -1,14 +1,19 @@
-package com.hb11.hql_criteriaapi;
+package com.hb12.caching;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
-public class Student11 {
-	
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Student12")
+public class Student12 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -45,7 +50,9 @@ public class Student11 {
 
 	@Override
 	public String toString() {
-		return "Student11 [id=" + id + ", name=" + name + ", mathGrade=" + mathGrade + "]";
+		return "Student12 [id=" + id + ", name=" + name + ", mathGrade=" + mathGrade + "]";
 	}
+
+
 
 }
