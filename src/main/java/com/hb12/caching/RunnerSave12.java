@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import com.hb09.fetchtypes.Student12;
 
 public class RunnerSave12 {
 
